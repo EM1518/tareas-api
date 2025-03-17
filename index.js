@@ -18,7 +18,15 @@ const MAX_TASKS = 5; // Constante
 
 // Ruta de inicio
 app.get('/', (req, res) => {
-  res.json({ message: 'API de Gestión de Tareas', status: 'active' });
+    if (tasks.length === 0) {
+        return res.json({ message: 'No hay tareas.', tasks: [] });
+      }
+      
+      const formattedTasks = tasks.map((task, index) => {
+        return { id: index, name: task };
+      });
+      
+      return res.json({ tasks: formattedTasks })
 });
 
 // MÓDULO 1: Agregar una tarea
